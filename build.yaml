@@ -1,0 +1,31 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/$lib$
+      - lib/**.dart
+      - test/**.dart
+    builders:
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - implicit_dynamic_parameter
+      json_serializable:
+        generate_for:
+          - lib/**.codegen.dart
+          - lib/refactor/shared/**.dart
+        options:
+          field_rename: snake
+      freezed:
+        options:
+          generic_argument_factories: true
+        generate_for:
+          - lib/**/blocs/**.dart
+          - lib/**.codegen.dart
+          - lib/refactor/shared/**.dart
+      mockito|mockBuilder:
+        generate_for:
+          - test/**.dart
+      injectable_generator:injectable_config_builder:
+        generate_for:
+          - lib/injector.dart
